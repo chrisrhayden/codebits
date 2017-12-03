@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# convert vimwiki mark down to git hub markdown
+
+# if no args exit
+[[ ! -n $1 ]] && echo "missing args" && exit 1
+
+while [[ -n $1 ]]; do
+    case "$1" in
+        -l | --loop) loop=1
+            ;;
+    esac
+    shift
+done
+
+convert_all_dot_wiki_files() {
+    local new_file_name
+    # loop over all files ending in .wiki
+    for f in *.wiki; do
+        # slice off the last 4 characters adding md to the end
+        new_file_name="${f::-4}md"
+        # run pandoc with git hub markdown output
+        printf "converting %s to gfm with pandoc" "$f"
+        pandoc "$f" --from=vimwiki --to=gfm --output="$new_file_name"
+    done
+}
+
+if ((loop)); then
+    convert_all_dot_wiki_files
+fi
