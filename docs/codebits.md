@@ -10,8 +10,14 @@
 
 ## info
 
-  - <https://wireframe.cc/KjWPUW>
-  - <https://react-bootstrap.github.io/components.html#popovers>
+  - display / annotation wireframe <https://wireframe.cc/KjWPUW>
+  - pasting wireframe <https://wireframe.cc/tDwC0q>
+  - listing page <https://wireframe.cc/svLkG1>
+
+<!-- end list -->
+
+  - pop ups from below are cool
+    <https://react-bootstrap.github.io/components.html#popovers>
 
 ## Abstract
 
@@ -63,18 +69,27 @@ in anti-patterns.
 
 <!-- end list -->
 
-  - paste code user gose to the web site and pastes a code snip, which
-    brings them to the display page.
+  - paste code User Person Guy goes to the web site and pastes a snippet
+    of code on the pasting / landing screen. After submitting the
+    snippet they are taken to the display page hosting that code bit
+    with a unique url. When done Person Guy give the url to a friend to
+    help with improvement.
+      - wire fram url <https://wireframe.cc/tDwC0q>
 
 <!-- end list -->
 
-  - add annotation user goes to display page for a given snippet and
-    clicks the button to annotate the code snip. a text box opens up
-    allowing the user to write code with a few tools to help with
-    writing.
+  - add annotation Person Guy wants to annotate some bad code using var
+    instead of const. They go the display page by pasting in a url
+    hosting the snippet in question and presses the annotate button and
+    a window will pop up allowing Person Guy to leave their constructive
+    feed back
+      - wire frame url <https://wireframe.cc/KjWPUW>
 
 <!-- end list -->
 
-  - view all snips User goes the list page and sees all snips in order.
-    the user can filter by skill or lang. User can click on a snip and
-    is brought to the display page.
+  - view all snips Person Guy wants to brows resent snippets that were
+    posted to codebits. They go to the tags page where the will chose
+    between lang tags (e.g. Python 3.6, JavaScript 6, etc) as well as
+    skill level. Choosing to help out a newbie, Person Guy click the
+    snippet title and is broth to
+      - wire frame url <https://wireframe.cc/svLkG1>
