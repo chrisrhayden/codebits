@@ -45,6 +45,8 @@ in anti-patterns.
 
   - I suck at design
   - I have no idea how annotations should be displayed
+<<<<<<< HEAD
+=======
 
 ## Story's
 
@@ -131,6 +133,7 @@ in anti-patterns.
 
   - I suck at design
   - I have no idea how annotations should be displayed
+>>>>>>> ebdd2229127cb743a8110abab4754174152ff53e
 
 ## Story's
 
@@ -149,6 +152,23 @@ in anti-patterns.
 
 <!-- end list -->
 
+<<<<<<< HEAD
+  - paste code user gose to the web site and pastes a code snip, which
+    brings them to the display page.
+
+<!-- end list -->
+
+  - add annotation user goes to display page for a given snippet and
+    clicks the button to annotate the code snip. a text box opens up
+    allowing the user to write code with a few tools to help with
+    writing.
+
+<!-- end list -->
+
+  - view all snips User goes the list page and sees all snips in order.
+    the user can filter by skill or lang. User can click on a snip and
+    is brought to the display page.
+=======
   - paste code User Person Guy goes to the web site and pastes a snippet
     of code on the pasting / landing screen. After submitting the
     snippet they are taken to the display page hosting that code bit
@@ -173,3 +193,4 @@ in anti-patterns.
     skill level. Choosing to help out a newbie, Person Guy click the
     snippet title and is broth to
       - wire frame url <https://wireframe.cc/svLkG1>
+>>>>>>> ebdd2229127cb743a8110abab4754174152ff53e
