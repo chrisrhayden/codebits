@@ -8,12 +8,12 @@ import {
 
 class PasteInlineForm extends Component {
   render () {
-    console.log(this.props)
     return (
       <Form inline>
-        <FormGroup controlId='pasting-meta'>
+        <FormGroup>
           <FormControl
             type='text'
+            id='snippet-title'
             placeholder='title'
             value={this.props.codeTitle}
             onChange={(e) => this.props.handleTextChange(e, 'codeTitle')}
@@ -21,6 +21,7 @@ class PasteInlineForm extends Component {
           {' '}
           <FormControl
             type='text'
+            id='snippet-author'
             placeholder='author'
             value={this.props.codeAuthor}
             onChange={(e) => this.props.handleTextChange(e, 'codeAuthor')}
