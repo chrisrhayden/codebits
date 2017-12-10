@@ -1,18 +1,48 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
+import {
+  FormGroup,
+  FormControl
+} from 'react-bootstrap'
 import './App.css'
+import PasteInlineForm from './pasteInlineForm.js'
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      codeText: '',
+      codeTitle: '',
+      codeAuthor: ''
+    }
+
+    this.handleTextChange = this.handleTextChange.bind(this)
+  }
+
+  handleTextChange (e, formName) {
+    this.setState({[formName]: e.target.value})
+  }
+
   render () {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div id='App'>
+        <div id='pasting-form'>
+          <form>
+            <FormGroup controlId='pasting-text'>
+              <FormControl
+                componentClass='textarea'
+                placeholder='paste text here'
+                value={this.state.codeText}
+                onChange={(e) => this.handleTextChange(e, 'codeText')}
+              />
+            </FormGroup>
+          </form>
+          <PasteInlineForm
+            codeText={this.state.codeTitle}
+            codeAuthor={this.state.codeAuthor}
+            handleTextChange={this.handleTextChange}
+          />
+        </div>
       </div>
     )
   }
