@@ -19,11 +19,5 @@ describe('integration testing', () => {
       const pastText = app.find('#pasting-text').text()
       expect(pastText).toBe('this is a test')
     })
-    it('the author and title box text changes when text is entered', () => {
-      app = mount(<App />)
-      app.setState({ codeAuthor: 'test author' })
-      const authorBox = app.find('input')
-      expect(authorBox).toBe('test author')
-    })
   })
 })

@@ -1,11 +1,8 @@
 /* global fetch */
 import React, { Component } from 'react'
-import {
-  FormGroup,
-  FormControl
-} from 'react-bootstrap'
 import './App.css'
 import PasteInlineForm from './pasteInlineForm.js'
+import PasteBox from './pasteBox.js'
 
 class App extends Component {
   constructor (props) {
@@ -49,16 +46,12 @@ class App extends Component {
     return (
       <div id='App'>
         <div id='pasting-form'>
-          <form>
-            <FormGroup controlId='pasting-text'>
-              <FormControl
-                componentClass='textarea'
-                placeholder='paste text here'
-                value={this.state.codeText}
-                onChange={(e) => this.handleTextChange(e, 'codeText')}
-              />
-            </FormGroup>
-          </form>
+          {/* my module */}
+          <PasteBox
+            codeText={this.state.codeText}
+            handleTextChange={this.handleTextChange}
+          />
+          {/* my module */}
           <PasteInlineForm
             codeText={this.state.codeTitle}
             codeAuthor={this.state.codeAuthor}
