@@ -1,10 +1,15 @@
 /* global fetch */
 import React, { Component } from 'react'
 import './App.css'
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+
 import PasteInlineForm from './pasteInlineForm.js'
 import PasteBox from './pasteBox.js'
 
-class App extends Component {
+class PastePage extends Component {
   constructor (props) {
     super(props)
 
@@ -44,22 +49,40 @@ class App extends Component {
 
   render () {
     return (
-      <div id='App'>
-        <div id='pasting-form'>
-          {/* my module */}
-          <PasteBox
-            codeText={this.state.codeText}
-            handleTextChange={this.handleTextChange}
-          />
-          {/* my module */}
-          <PasteInlineForm
-            codeText={this.state.codeTitle}
-            codeAuthor={this.state.codeAuthor}
-            handleTextChange={this.handleTextChange}
-            sendToFB={this.sendToFB}
-          />
-        </div>
+      <div id='pasting-form'>
+        {/* my module */}
+        <PasteBox
+          codeText={this.state.codeText}
+          handleTextChange={this.handleTextChange}
+        />
+        {/* my module */}
+        <PasteInlineForm
+          codeText={this.state.codeTitle}
+          codeAuthor={this.state.codeAuthor}
+          handleTextChange={this.handleTextChange}
+          sendToFB={this.sendToFB}
+        />
       </div>
+    )
+  }
+}
+
+class DisplayPage extends Component {
+  render () {
+    return (<div><p>fuck</p></div>)
+  }
+}
+
+class App extends Component {
+  render () {
+    return (
+      <Router>
+        <div id='App'>
+          {/*  exact is to only route if alone */}
+          <Route exact path='/' component={PastePage} />
+          <Route path='/snip/' component={DisplayPage} />
+        </div>
+      </Router>
     )
   }
 }
