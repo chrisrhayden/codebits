@@ -10,15 +10,16 @@ class PasteInlineForm extends Component {
   render () {
     return (
       <Form inline>
-        <FormGroup>
+        <FormGroup controlId='snippet-title'>
           <FormControl
             type='text'
-            id='snippet-title'
             placeholder='title'
             value={this.props.codeTitle}
             onChange={(e) => this.props.handleTextChange(e, 'codeTitle')}
           />
           {' '}
+        </FormGroup>
+        <FormGroup>
           <FormControl
             type='text'
             id='snippet-author'
