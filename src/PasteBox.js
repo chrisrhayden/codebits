@@ -5,16 +5,17 @@ import {
 } from 'react-bootstrap'
 import './App.css'
 
-class App extends Component {
+class PasteBox extends Component {
   render () {
     return (
       <form>
-        <FormGroup controlId='pasting-text'>
+        <FormGroup>
           <FormControl
+            id='pastingText'
             componentClass='textarea'
-            placeholder='paste text here'
+            jlaceholder='paste text here'
             value={this.props.codeText}
-            onChange={(e) => this.props.handleTextChange(e, 'codeText')}
+            onChange={(e) => this.props.handleChange(e, 'codeText')}
           />
         </FormGroup>
       </form>
@@ -22,4 +23,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default PasteBox
