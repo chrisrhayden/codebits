@@ -10,6 +10,16 @@ import {
 import PasteInlineForm from './pasteInlineForm.js'
 import PasteBox from './pasteBox.js'
 
+class TagsPage extends Component {
+  render () {
+    return (
+      <div>
+        <p>the tags page</p>
+      </div>
+    )
+  }
+}
+
 class PastePage extends Component {
   constructor (props) {
     super(props)
@@ -82,10 +92,29 @@ class DisplayPage extends Component {
     }
   }
 
-  componentWillMount () {
-    console.log(this.props.match)
+  ifFbKeyOrNot (aStr) {
+    const patt = '^-[a-zA-Z0-9]+'
 
-    const fbUrl = 'https://firstproj-9f9e1.firebaseio.com/snip.json'
+    if (aStr.match(patt)) {
+      return aStr
+    } else {
+      return false
+    }
+  }
+
+  componentWillMount () {
+    /* idk why eslint cant deal with assigning in an if */
+    let fbUrl = ''
+    const unclean = this.props.match.params.snipKey
+
+    const snipKey = this.ifFbKeyOrNot(unclean)
+
+    if (snipKey !== false) {
+      fbUrl = `https://firstproj-9f9e1.firebaseio.com/snip.json/${snipKey}`
+    } else {
+      this.setState({ codeText: 'bad url' })
+      return
+    }
 
     const getInit = {
       method: 'GET'
@@ -93,7 +122,13 @@ class DisplayPage extends Component {
 
     fetch(fbUrl, getInit)
       .then(resp => resp.json())
-      .catch(console.log)
+      .then((resp) => {
+        this.setState({ codeText: resp })
+      })
+      .catch((err) => {
+        console.log(err)
+        this.setState({codeText: 'issues contacting server'})
+      })
   }
 
   render () {
@@ -115,6 +150,7 @@ class App extends Component {
           <Route path='/snip/:snipKey' render={props => (
             <DisplayPage {...props} />
           )} />
+          <Route path='/tags' component={TagsPage} />
         </div>
       </Router>
     )
