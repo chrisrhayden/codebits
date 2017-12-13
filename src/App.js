@@ -1,4 +1,5 @@
 /* global fetch */
+
 import React, { Component } from 'react'
 import './App.css'
 import {
@@ -73,8 +74,34 @@ class PastePage extends Component {
 }
 
 class DisplayPage extends Component {
+  constructor () {
+    super()
+
+    this.state = {
+      codeText: ''
+    }
+  }
+
+  componentWillMount () {
+    console.log(this.props.match)
+
+    const fbUrl = 'https://firstproj-9f9e1.firebaseio.com/snip.json'
+
+    const getInit = {
+      method: 'GET'
+    }
+
+    fetch(fbUrl, getInit)
+      .then(resp => resp.json())
+      .catch(console.log)
+  }
+
   render () {
-    return (<div><p>fuck</p></div>)
+    return (
+      <div>
+        <p>{this.state.codeText}</p>
+      </div>
+    )
   }
 }
 
@@ -85,7 +112,9 @@ class App extends Component {
         <div id='App'>
           {/*  exact is to only route if alone */}
           <Route exact path='/' component={PastePage} />
-          <Route path='/snip/' component={DisplayPage} />
+          <Route path='/snip/:snipKey' render={props => (
+            <DisplayPage {...props} />
+          )} />
         </div>
       </Router>
     )
