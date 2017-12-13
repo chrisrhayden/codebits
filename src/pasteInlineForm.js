@@ -49,7 +49,9 @@ class PasteInlineForm extends Component {
             <option value='advance'>advance</option>
           </FormControl>
         </FormGroup>
-        <Button bsStyle='primary'>Submit</Button>
+        <Button bsStyle='primary'
+          onClick={this.props.sendToFB}
+        >Submit</Button>
       </Form>
     )
   }

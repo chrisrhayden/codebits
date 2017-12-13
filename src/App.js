@@ -1,3 +1,4 @@
+/* global fetch */
 import React, { Component } from 'react'
 import {
   FormGroup,
@@ -17,10 +18,31 @@ class App extends Component {
     }
 
     this.handleTextChange = this.handleTextChange.bind(this)
+    this.sendToFB = this.sendToFB.bind(this)
   }
 
   handleTextChange (e, formName) {
     this.setState({[formName]: e.target.value})
+  }
+
+  sendToFB () {
+    const fbUrl = 'https://firstproj-9f9e1.firebaseio.com/snip.json'
+
+    console.log(this)
+    const postInit = {
+      method: 'POST',
+      body: JSON.stringify({
+        codeText: this.state.codeText,
+        codeTitle: this.state.codeTitle,
+        codeAuthor: this.state.codeAuthor
+      })
+    }
+
+    console.log(postInit)
+    fetch(fbUrl, postInit)
+      .then(resp => resp.json())
+      .then(console.log)
+      .catch(console.log)
   }
 
   render () {
@@ -41,6 +63,7 @@ class App extends Component {
             codeText={this.state.codeTitle}
             codeAuthor={this.state.codeAuthor}
             handleTextChange={this.handleTextChange}
+            sendToFB={this.sendToFB}
           />
         </div>
       </div>
