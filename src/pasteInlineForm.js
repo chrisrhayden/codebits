@@ -15,35 +15,39 @@ class PasteInlineForm extends Component {
             type='text'
             placeholder='title'
             value={this.props.codeTitle}
-            onChange={(e) => this.props.handleTextChange(e, 'codeTitle')}
+            onChange={(e) => this.props.handleChange(e, 'codeTitle')}
           />
           {' '}
         </FormGroup>
         <FormGroup>
           <FormControl
             type='text'
-            id='snippet-author'
+            id='snippetAuthor'
             placeholder='author'
             value={this.props.codeAuthor}
-            onChange={(e) => this.props.handleTextChange(e, 'codeAuthor')}
+            onChange={(e) => this.props.handleChange(e, 'codeAuthor')}
           />
         </FormGroup>
         {' '}
-        <FormGroup controlId='lang-select'>
+        <FormGroup controlId='langSelect'>
           <FormControl
             componentClass='select'
             placeholder='lang'
+            value={this.props.langSelect}
+            onChange={(e) => this.props.handleChange(e, 'langSelect')}
           >
+            <option value='lang'>lang</option>
             <option value='pyhton'>python</option>
             <option value='thing'>thing</option>
           </FormControl>
         </FormGroup>
         {' '}
-        <FormGroup controlId='skill-select'>
+        <FormGroup controlId='skillSelect'>
           <FormControl
             componentClass='select'
             placeholder='skill'
           >
+            <option value='skill'>skill</option>
             <option value='beginner'>beginner</option>
             <option value='intermediate'>intermediate</option>
             <option value='advance'>advance</option>

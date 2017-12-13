@@ -14,7 +14,7 @@ class App extends Component {
             componentClass='textarea'
             placeholder='paste text here'
             value={this.props.codeText}
-            onChange={(e) => this.props.handleTextChange(e, 'codeText')}
+            onChange={(e) => this.props.handleChange(e, 'codeText')}
           />
         </FormGroup>
       </form>

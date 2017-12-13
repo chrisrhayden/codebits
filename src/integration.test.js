@@ -1,7 +1,7 @@
 /* global it describe beforeEach expect */
 
 import React from 'react'
-import Enzyme, { mount, shallow } from 'enzyme'
+import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import App from './App'
 
@@ -12,12 +12,15 @@ describe('integration testing', () => {
 
   let app
 
-  describe('the paste info box\'s', () => {
-    it('changes the past box text when text is entered', () => {
-      app = mount(<App />)
-      app.setState({ codeText: 'this is a test' })
-      const pastText = app.find('#pasting-text').text()
-      expect(pastText).toBe('this is a test')
-    })
+  beforeEach(() => {
+    app = mount(<App />)
+    app.setStaet({ codeText: 'this is a test' })
+  })
+
+  it('changes the past box text when text is entered', () => {
+    const pastText = app.find('#pasting-text').html()
+    console.log(app)
+    // console.log(app.find('#pasting-text').)
+    expect(pastText).toBe('this is a test')
   })
 })

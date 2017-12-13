@@ -16,31 +16,35 @@ class PastePage extends Component {
     this.state = {
       codeText: '',
       codeTitle: '',
-      codeAuthor: ''
+      codeAuthor: '',
+      langSelect: '',
+      skillSelect: ''
     }
 
-    this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.sendToFB = this.sendToFB.bind(this)
   }
 
-  handleTextChange (e, formName) {
+  handleChange (e, formName) {
     this.setState({[formName]: e.target.value})
   }
 
   sendToFB () {
     const fbUrl = 'https://firstproj-9f9e1.firebaseio.com/snip.json'
 
-    console.log(this)
     const postInit = {
       method: 'POST',
       body: JSON.stringify({
         codeText: this.state.codeText,
         codeTitle: this.state.codeTitle,
-        codeAuthor: this.state.codeAuthor
+        codeAuthor: this.state.codeAuthor,
+        langSelect: this.state.langSelect,
+        skillSelect: this.state.skillSelect
+
       })
     }
 
-    console.log(postInit)
+    console.log(postInit.body)
     fetch(fbUrl, postInit)
       .then(resp => resp.json())
       .then(console.log)
@@ -53,14 +57,15 @@ class PastePage extends Component {
         {/* my module */}
         <PasteBox
           codeText={this.state.codeText}
-          handleTextChange={this.handleTextChange}
+          handleChange={this.handleChange}
         />
         {/* my module */}
         <PasteInlineForm
           codeText={this.state.codeTitle}
           codeAuthor={this.state.codeAuthor}
-          handleTextChange={this.handleTextChange}
+          handleChange={this.handleChange}
           sendToFB={this.sendToFB}
+          langSelect={this.state.langSelect}
         />
       </div>
     )
