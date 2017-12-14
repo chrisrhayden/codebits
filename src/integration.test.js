@@ -74,4 +74,8 @@ describe('integration testing', () => {
     // call props again and retrieve value
     expect(pform.find('#skillSelect').props().value).toBe('intermediate')
   })
+
+  it('it makes a fetch call when the submit bution is pressed', () => {
+
+  })
 })
