@@ -49,6 +49,8 @@ class PasteInlineForm extends Component {
             id='skillSelect'
             componentClass='select'
             placeholder='skill'
+            value={this.props.skillSelect}
+            onChange={(e) => this.props.handleChange(e, 'langSelect')}
           >
             <option value='skill'>skill</option>
             <option value='beginner'>beginner</option>
