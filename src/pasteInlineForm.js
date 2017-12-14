@@ -10,8 +10,9 @@ class PasteInlineForm extends Component {
   render () {
     return (
       <Form inline>
-        <FormGroup controlId='snippet-title'>
+        <FormGroup>
           <FormControl
+            id='snippetTitle'
             type='text'
             placeholder='title'
             value={this.props.codeTitle}
@@ -29,8 +30,9 @@ class PasteInlineForm extends Component {
           />
         </FormGroup>
         {' '}
-        <FormGroup controlId='langSelect'>
+        <FormGroup>
           <FormControl
+            id='langSelect'
             componentClass='select'
             placeholder='lang'
             value={this.props.langSelect}
@@ -42,8 +44,9 @@ class PasteInlineForm extends Component {
           </FormControl>
         </FormGroup>
         {' '}
-        <FormGroup controlId='skillSelect'>
+        <FormGroup>
           <FormControl
+            id='skillSelect'
             componentClass='select'
             placeholder='skill'
           >
