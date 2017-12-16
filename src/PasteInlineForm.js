@@ -60,7 +60,7 @@ class PasteInlineForm extends Component {
         </FormGroup>
         <Button bsStyle='primary'
           id='submitButton'
-          onClick={this.props.sendToFB}
+          onClick={this.props.sendToDB}
         >Submit</Button>
       </Form>
     )

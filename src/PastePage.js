@@ -1,7 +1,8 @@
 /* global fetch */
+
 import React, { Component } from 'react'
-import PasteBox from './pasteBox'
-import PasteInlineForm from './pasteInlineForm'
+import PasteBox from './PasteBox'
+import PasteInlineForm from './PasteInlineForm'
 
 class PastePage extends Component {
   constructor (props) {
@@ -65,7 +66,7 @@ class PastePage extends Component {
           codeText={this.state.codeTitle}
           codeAuthor={this.state.codeAuthor}
           handleChange={this.handleChange}
-          sendToFB={this.sendToFB}
+          sendToDB={this.sendToDB}
           langSelect={this.state.langSelect}
         />
       </div>

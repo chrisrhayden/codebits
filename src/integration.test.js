@@ -3,8 +3,8 @@
 import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import PasteInlineForm from './pasteInlineForm'
-import PasteBox from './pasteBox'
+import PasteInlineForm from './PasteInlineForm'
+import PasteBox from './PasteBox'
 import fetch from 'jest-fetch-mock'
 
 Enzyme.configure({adapter: new Adapter()})

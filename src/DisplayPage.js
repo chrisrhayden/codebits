@@ -10,11 +10,11 @@ class DisplayPage extends Component {
     super()
 
     this.state = {
+      codeText: '',
       codeTitle: '',
       codeAuthor: '',
-      langSelect: '',
       skillSelect: '',
-      codeText: ''
+      langSelect: ''
     }
   }
 
@@ -27,7 +27,13 @@ class DisplayPage extends Component {
     fetch(fbUrl)
       .then(resp => resp.json())
       .then((resp) => {
-        this.setState({...resp})
+        this.setState({
+          codeText: resp.codeText,
+          codeTitle: resp.codeTitle,
+          codeAuthor: resp.codeAuthor,
+          skillSelect: resp.skillSelect,
+          langSelect: resp.langSelect
+        })
       })
       .catch((err) => {
         console.log(err)
@@ -37,14 +43,11 @@ class DisplayPage extends Component {
 
   render () {
     const rows = this.state.codeText.split('\n').map((thing) => {
-      console.log(thing)
       const lang = this.state.langSelect.toLowerCase()
       return (
         <tr>
           <td>
-            <pre class={`language-${lang}`}>
-              <code class={`language-${lang}`}><p>{thing}</p></code>
-            </pre>
+              <code className={`language-${lang}`}><p>{thing}</p></code>
           </td>
         </tr>
       )
@@ -55,10 +58,12 @@ class DisplayPage extends Component {
       >
         <Panel>
           <table>
+            <pre>
             <tbody>
               <tr><td>this is a row</td></tr>
               {rows}
             </tbody>
+            </pre>
           </table>
         </Panel>
       </div>
