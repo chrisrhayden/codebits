@@ -3,11 +3,33 @@ import React, { Component } from 'react'
 import './App.css'
 import {
   Panel,
-  Popover,
   Overlay
 } from 'react-bootstrap'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
+
+class WriteAnnotation extends Component {
+  render () {
+    console.log(this.props.style)
+    return (
+      <div
+        className='popover-content'
+        id='annotation'
+        style={{
+          top: 0,
+          left: 195,
+          position: 'absolute',
+          border: '1px solid rgba(0,0,0,.2)',
+          boxShadow: '0 5px 10px rgba(0,0,0,.2)',
+          backgroundColor: 'white',
+          borderRadius: '6px',
+          height: '200px',
+          width: '640px'
+        }}
+      />
+    )
+  }
+}
 
 class DisplayPage extends Component {
   constructor () {
@@ -20,7 +42,7 @@ class DisplayPage extends Component {
       skillSelect: '',
       langSelect: '',
       lineCount: 0,
-      overlayShow: 0,
+      overlayShow: false,
       overlayTarget: false
     }
     this.addAnnotation = this.addAnnotation.bind(this)
@@ -49,21 +71,18 @@ class DisplayPage extends Component {
       })
   }
 
-  addAnnotation (e) {
-    console.log('>>>>>', e)
-    console.log(e.target)
-
+  async addAnnotation (e) {
     if (e.target.textContent.match('^[0-9]+\n$')) {
-      console.log('true')
-
-      this.setState({
+      console.log(e.target.textContent)
+      await this.setState({
         overlayTarget: e.target,
-        overlayShow: e.target.textContent
+        overlayShow: true
       })
     }
   }
 
   render () {
+    console.log(this.refs)
     return (
       <div
         id='codeDisplayBox'
@@ -79,22 +98,16 @@ class DisplayPage extends Component {
           >
             {this.state.codeText}
           </SyntaxHighlighter>
-
         </Panel>
 
+        {/* show wants ether true or false */}
         <Overlay
-          id='popup'
           show={this.state.overlayShow}
+          placemant='right'
+          container={this}
           target={this.state.overlayTarget}
-          placment='right'
-          container={this.state.target}
         >
-          <Popover
-            id='popover-positioned-right'
-            placment='left'
-          >
-            <textarea />
-          </Popover>
+          <WriteAnnotation />
         </Overlay>
       </div>
     )
