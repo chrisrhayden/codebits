@@ -1,49 +1,37 @@
 import React, { Component } from 'react'
-import {
-  FormGroup,
-  FormControl
-} from 'react-bootstrap'
 import './App.css'
-import PasteInlineForm from './pasteInlineForm.js'
+import PastePage from './PastePage'
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+import DisplayPage from './DisplayPage'
 
-class App extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      codeText: '',
-      codeTitle: '',
-      codeAuthor: ''
-    }
-
-    this.handleTextChange = this.handleTextChange.bind(this)
-  }
-
-  handleTextChange (e, formName) {
-    this.setState({[formName]: e.target.value})
-  }
-
+class TagsPage extends Component {
   render () {
     return (
-      <div id='App'>
-        <div id='pasting-form'>
-          <form>
-            <FormGroup controlId='pasting-text'>
-              <FormControl
-                componentClass='textarea'
-                placeholder='paste text here'
-                value={this.state.codeText}
-                onChange={(e) => this.handleTextChange(e, 'codeText')}
-              />
-            </FormGroup>
-          </form>
-          <PasteInlineForm
-            codeText={this.state.codeTitle}
-            codeAuthor={this.state.codeAuthor}
-            handleTextChange={this.handleTextChange}
-          />
-        </div>
+      <div>
+        <p>the tags page</p>
       </div>
+    )
+  }
+}
+
+class App extends Component {
+  render () {
+    return (
+      <Router>
+        <div id='App'>
+          {/*  exact is to only route if alone */}
+          <Route exact path='/' render={props => (
+            <PastePage {...props} />
+          )} />
+          <Route path='/snip/:snipKey' render={props => (
+            <DisplayPage {...props} />
+          )} />
+          <Route path='/tags' component={TagsPage} />
+        </div>
+      </Router>
     )
   }
 }
