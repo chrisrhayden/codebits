@@ -2,7 +2,9 @@
 import React, { Component } from 'react'
 import './App.css'
 import {
-  Panel
+  Panel,
+  Popover,
+  Overlay
 } from 'react-bootstrap'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
@@ -17,15 +19,11 @@ class DisplayPage extends Component {
       codeAuthor: '',
       skillSelect: '',
       langSelect: '',
-      lineCount: -1
+      lineCount: 0,
+      overlayShow: 0,
+      overlayTarget: false
     }
-  }
-
-  addAnnotation (e) {
-    if (e.target.textContent.match('^[0-9]+\n$')) {
-      console.log(e.target.textContent)
-      console.log('true')
-    }
+    this.addAnnotation = this.addAnnotation.bind(this)
   }
 
   componentWillMount () {
@@ -38,7 +36,7 @@ class DisplayPage extends Component {
       .then(resp => resp.json())
       .then((resp) => {
         this.setState({
-          codeText: resp.codeText.split('\n'),
+          codeText: resp.codeText,
           codeTitle: resp.codeTitle,
           codeAuthor: resp.codeAuthor,
           skillSelect: resp.skillSelect,
@@ -51,46 +49,53 @@ class DisplayPage extends Component {
       })
   }
 
+  addAnnotation (e) {
+    console.log('>>>>>', e)
+    console.log(e.target)
+
+    if (e.target.textContent.match('^[0-9]+\n$')) {
+      console.log('true')
+
+      this.setState({
+        overlayTarget: e.target,
+        overlayShow: e.target.textContent
+      })
+    }
+  }
+
   render () {
-    console.log(this.state.lineCount)
-    const rows = this.state.codeText ? this.state.codeText.map((codeLine) => {
-      const lang = this.state.langSelect.toLowerCase()
-      /* I'm unsure how to do this as if I use setState I get
-       * Maximum update depth exceeded so im just mutating state like this
-       * this.setState({ lineCount: this.state.lineCount++ }) */
-      this.state.lineCount++
-      return (
-        <tr>
-          <td>
-            <SyntaxHighlighter
-              language={lang}
-              showLineNumbers
-              startingLineNumber={this.state.lineCount}
-              style={atelierDuneDark}
-              onClick={this.addAnnotation}
-            >
-              {codeLine}
-            </SyntaxHighlighter>
-          </td>
-        </tr>
-      )
-    }) : ''
     return (
       <div
         id='codeDisplayBox'
       >
         <Panel>
-          <table>
-            <tbody>
-              <tr>
-                <th>
-                  Title: {this.state.codeTitle} Author:  {this.state.codeAuthor}
-                </th>
-              </tr>
-              {rows}
-            </tbody>
-          </table>
+          <p>Title: {this.state.codeTitle}</p>
+          <p>Author: {this.state.codeAuthor}</p>
+          <SyntaxHighlighter
+            language={this.state.langSelect}
+            showLineNumbers
+            style={atelierDuneDark}
+            onClick={this.addAnnotation}
+          >
+            {this.state.codeText}
+          </SyntaxHighlighter>
+
         </Panel>
+
+        <Overlay
+          id='popup'
+          show={this.state.overlayShow}
+          target={this.state.overlayTarget}
+          placment='right'
+          container={this.state.target}
+        >
+          <Popover
+            id='popover-positioned-right'
+            placment='left'
+          >
+            <textarea />
+          </Popover>
+        </Overlay>
       </div>
     )
   }
