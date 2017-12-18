@@ -85,7 +85,7 @@ describe('integration testing', () => {
       langSelect: '',
       skillSelect: '',
       handleChange: jest.fn(),
-      sendToFB: fbCallBack
+      sendToDB: fbCallBack
     }
 
     const shalForm = shallow(<PasteInlineForm {...bumBumyData} />)
