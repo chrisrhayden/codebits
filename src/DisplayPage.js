@@ -5,7 +5,7 @@ import {
   Panel
 } from 'react-bootstrap'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { docco } from 'react-syntax-highlighter/styles/hljs'
+import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
 
 class DisplayPage extends Component {
   constructor () {
@@ -16,21 +16,29 @@ class DisplayPage extends Component {
       codeTitle: '',
       codeAuthor: '',
       skillSelect: '',
-      langSelect: ''
+      langSelect: '',
+      lineCount: -1
+    }
+  }
+
+  addAnnotation (e) {
+    if (e.target.textContent.match('^[0-9]+\n$')) {
+      console.log(e.target.textContent)
+      console.log('true')
     }
   }
 
   componentWillMount () {
-    let fbUrl = ''
+    let fbUrlBase = 'https://firstproj-9f9e1.firebaseio.com/'
     const snipKey = this.props.match.params.snipKey
 
-    fbUrl = `https://firstproj-9f9e1.firebaseio.com/snip/${snipKey}.json`
+    const fbUrl = `${fbUrlBase}snip/${snipKey}.json`
 
     fetch(fbUrl)
       .then(resp => resp.json())
       .then((resp) => {
         this.setState({
-          codeText: resp.codeText,
+          codeText: resp.codeText.split('\n'),
           codeTitle: resp.codeTitle,
           codeAuthor: resp.codeAuthor,
           skillSelect: resp.skillSelect,
@@ -44,33 +52,43 @@ class DisplayPage extends Component {
   }
 
   render () {
-    const rows = this.state.codeText.split('\n').map((thing) => {
+    console.log(this.state.lineCount)
+    const rows = this.state.codeText ? this.state.codeText.map((codeLine) => {
       const lang = this.state.langSelect.toLowerCase()
+      /* I'm unsure how to do this as if I use setState I get
+       * Maximum update depth exceeded so im just mutating state like this
+       * this.setState({ lineCount: this.state.lineCount++ }) */
+      this.state.lineCount++
       return (
-        <SyntaxHighlighter
-          language={lang}
-          style={docco}
-        >
-          {thing}
-        </SyntaxHighlighter>
+        <tr>
+          <td>
+            <SyntaxHighlighter
+              language={lang}
+              showLineNumbers
+              startingLineNumber={this.state.lineCount}
+              style={atelierDuneDark}
+              onClick={this.addAnnotation}
+            >
+              {codeLine}
+            </SyntaxHighlighter>
+          </td>
+        </tr>
       )
-    })
+    }) : ''
     return (
       <div
         id='codeDisplayBox'
       >
         <Panel>
           <table>
-            <tr>
-              <th>
-                Title: {this.state.codeTitle} Author:  {this.state.codeAuthor}
-              </th>
-            </tr>
-            <pre>
-              <tbody>
-                {rows}
-              </tbody>
-            </pre>
+            <tbody>
+              <tr>
+                <th>
+                  Title: {this.state.codeTitle} Author:  {this.state.codeAuthor}
+                </th>
+              </tr>
+              {rows}
+            </tbody>
           </table>
         </Panel>
       </div>
