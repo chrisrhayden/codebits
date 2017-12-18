@@ -58,7 +58,8 @@ class PasteInlineForm extends Component {
             <option value='advance'>advance</option>
           </FormControl>
         </FormGroup>
-        <Button bsStyle='primary'
+        <Button
+          bsStyle='primary'
           id='submitButton'
           onClick={this.props.sendToDB}
         >Submit</Button>

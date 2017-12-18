@@ -4,6 +4,8 @@ import './App.css'
 import {
   Panel
 } from 'react-bootstrap'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { docco } from 'react-syntax-highlighter/styles/hljs'
 
 class DisplayPage extends Component {
   constructor () {
@@ -45,11 +47,12 @@ class DisplayPage extends Component {
     const rows = this.state.codeText.split('\n').map((thing) => {
       const lang = this.state.langSelect.toLowerCase()
       return (
-        <tr>
-          <td>
-              <code className={`language-${lang}`}><p>{thing}</p></code>
-          </td>
-        </tr>
+        <SyntaxHighlighter
+          language={lang}
+          style={docco}
+        >
+          {thing}
+        </SyntaxHighlighter>
       )
     })
     return (
@@ -58,11 +61,15 @@ class DisplayPage extends Component {
       >
         <Panel>
           <table>
+            <tr>
+              <th>
+                Title: {this.state.codeTitle} Author:  {this.state.codeAuthor}
+              </th>
+            </tr>
             <pre>
-            <tbody>
-              <tr><td>this is a row</td></tr>
-              {rows}
-            </tbody>
+              <tbody>
+                {rows}
+              </tbody>
             </pre>
           </table>
         </Panel>
