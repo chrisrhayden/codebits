@@ -7,29 +7,7 @@ import {
 } from 'react-bootstrap'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
-
-class WriteAnnotation extends Component {
-  render () {
-    console.log(this.props.style)
-    return (
-      <div
-        className='popover-content'
-        id='annotation'
-        style={{
-          top: 0,
-          left: 195,
-          position: 'absolute',
-          border: '1px solid rgba(0,0,0,.2)',
-          boxShadow: '0 5px 10px rgba(0,0,0,.2)',
-          backgroundColor: 'white',
-          borderRadius: '6px',
-          height: '200px',
-          width: '640px'
-        }}
-      />
-    )
-  }
-}
+import WriteAnnotation from './AnnotationPage'
 
 class DisplayPage extends Component {
   constructor () {

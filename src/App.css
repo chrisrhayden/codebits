@@ -27,3 +27,21 @@ td pre {
 .arrow {
     display: none;
 }
+
+#annotation {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    position: absolute;
+    border: 1px solid rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    background-color: white;
+    border-radius: 6px;
+    height: 200px;
+    width: 730px;
+}
+
+#annotationBox {
+    width: 620px;
+    height: 180px;
+}

@@ -31,3 +31,15 @@
 	box-shadow: 0 5px 10px rgba(0,0,0,.2);
 	line-break: auto;
 }
+
+
+-          top: 0,
+-          left: 195,
+-          position: 'absolute',
+-          border: '1px solid rgba(0,0,0,.2)',
+-          boxShadow: '0 5px 10px rgba(0,0,0,.2)',
+-          backgroundColor: 'white',
+-          borderRadius: '6px',
+-          height: '200px',
+-          width: '640px'
+
