@@ -1,13 +1,16 @@
 /* global fetch */
 import React, { Component } from 'react'
 import './App.css'
+
 import {
   Panel,
   Overlay
 } from 'react-bootstrap'
+
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
-import WriteAnnotation from './AnnotationPage'
+
+import WriteAnnotation from './WriteAnnotation'
 
 class DisplayPage extends Component {
   constructor () {
@@ -19,11 +22,22 @@ class DisplayPage extends Component {
       codeAuthor: '',
       skillSelect: '',
       langSelect: '',
+      anoText: '',
+      anoAuthor: '',
+      anoLineBegin: 0,
+      anoLineEnd: 0,
       lineCount: 0,
       overlayShow: false,
       overlayTarget: false
     }
+
     this.addAnnotation = this.addAnnotation.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.sendAnoToDB = this.sendAnoToDB.bind(this)
+  }
+
+  handleChange (e, formName) {
+    this.setState({[formName]: e.target.value})
   }
 
   componentWillMount () {
@@ -49,12 +63,43 @@ class DisplayPage extends Component {
       })
   }
 
-  async addAnnotation (e) {
+  sendAnoToDB () {
+    const urlBase = 'https://firstproj-9f9e1.firebaseio.com/'
+    const theUrl = `${urlBase}/ano.json`
+
+    const anoObj = {
+      anoText: this.state.anoText,
+      anoAuthor: this.state.anoAuthor,
+      anoLineBegin: this.state.anoLineBegin,
+      anoLineEnd: this.anoLineEnd
+
+    }
+
+    const myInit = {
+      method: 'POST',
+      body: JSON.stringify(anoObj)
+    }
+
+    fetch(theUrl, myInit)
+      .then(resp => resp.json())
+      .then(() => {
+        this.setState({
+          anoText: '',
+          anoLineBegin: '',
+          anoLineEnd: '',
+          anoAuthor: ''
+        })
+      })
+      .catch(console.log)
+  }
+
+  addAnnotation (e) {
     if (e.target.textContent.match('^[0-9]+\n$')) {
-      console.log(e.target.textContent)
-      await this.setState({
+      const lineNum = parseInt(e.target.textContent)
+      this.setState({
         overlayTarget: e.target,
-        overlayShow: true
+        overlayShow: true,
+        anoLineBegin: lineNum !== 'NaN' ? lineNum : 0
       })
     }
   }
@@ -85,7 +130,13 @@ class DisplayPage extends Component {
           container={this}
           target={this.state.overlayTarget}
         >
-          <WriteAnnotation />
+          <WriteAnnotation
+            anoText={this.state.anoText}
+            handleChange={this.handleChange}
+            sendAnoToDB={this.sendAnoToDB}
+            anoLineBegin={this.state.anoLineBegin}
+            anoLineEnd={this.state.anoLineEnd}
+          />
         </Overlay>
       </div>
     )

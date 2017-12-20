@@ -19,7 +19,7 @@ class PastePage extends Component {
     this.sendToDB = this.sendToDB.bind(this)
   }
 
-  /* i get a eslint error making it a variable */
+  /* TODO: ask Petter how to disable */
   handleChange (e, formName) {
     this.setState({[formName]: e.target.value})
   }

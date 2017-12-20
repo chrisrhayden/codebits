@@ -37,11 +37,19 @@ td pre {
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
     background-color: white;
     border-radius: 6px;
-    height: 200px;
+    height: 230px;
     width: 730px;
 }
 
-#annotationBox {
+#addAnnotationBox {
     width: 620px;
-    height: 180px;
+    height: 165px;
+}
+
+#anoLineBegin {
+    width: 150px;
+}
+
+#anoLineEnd {
+    width: 150px;
 }
