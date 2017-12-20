@@ -25,7 +25,7 @@ class DisplayPage extends Component {
       anoText: '',
       anoAuthor: '',
       anoLineBegin: 0,
-      anoLineEnd: 0,
+      anoLineEnd: false,
       lineCount: 0,
       overlayShow: false,
       overlayTarget: false

@@ -52,8 +52,9 @@ class WriteAnnotation extends Component {
                 type='number'
                 value={this.props.anoLineEnd}
                 onChange={(e) => {
-                  /* eslint-disable-next-line no-useless-escape */
-                  if (e.target.value.match('\d')) {
+                  const value = e.target.value
+                  // eslint-disable-next-line no-useless-escape
+                  if (value.match('[0-9]+') || value === '') {
                     this.props.handleChange(e, 'anoLineEnd')
                   }
                 }}
