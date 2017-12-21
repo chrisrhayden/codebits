@@ -11,12 +11,14 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
 
 import WriteAnnotation from './WriteAnnotation'
+import ShowAno from './ShowAno'
 
 class DisplayPage extends Component {
   constructor () {
     super()
 
     this.state = {
+      snipKey: 0,
       codeText: '',
       codeTitle: '',
       codeAuthor: '',
@@ -28,13 +30,20 @@ class DisplayPage extends Component {
       anoLineEnd: 0,
       lineCount: 0,
       overlayShow: false,
-      overlayTarget: false
+      overlayTarget: false,
+      allAnos: {},
+      anoLines: [],
+      anoOverlayShow: false,
+      anoOverlayTarget: false,
+      currentAno: ''
     }
 
     this.addAnnotation = this.addAnnotation.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
     this.handleLineChange = this.handleLineChange.bind(this)
     this.sendAnoToDB = this.sendAnoToDB.bind(this)
+    this.anoOrNot = this.anoOrNot.bind(this)
+    this.addOrShowAno = this.addOrShowAno.bind(this)
   }
 
   handleLineChange (e, formName) {
@@ -56,6 +65,7 @@ class DisplayPage extends Component {
       .then(resp => resp.json())
       .then((resp) => {
         this.setState({
+          snipKey,
           codeText: resp.codeText,
           codeTitle: resp.codeTitle,
           codeAuthor: resp.codeAuthor,
@@ -68,17 +78,19 @@ class DisplayPage extends Component {
         this.setState({codeText: '404 page not found'})
       })
 
-    /* fake need internet */
-    const anoUrl = `${fbUrlBase}/ano/ FIRE BASE get by key`
+    const anoUrl = `${fbUrlBase}/ano.json`
+
     await fetch(anoUrl)
       .then(resp => resp.json())
       .then((resp) => {
-        this.setState({
-          anoText: resp.anoText,
-          anoAuthor: resp.anoAuthor,
-          anoLineBegin: resp.anoLineBegin,
-          anoLineEnd: resp.anoLineEnd
+        const allAnos = Object.values(resp)
+          .filter((obj) => obj.snipKey === this.state.snipKey)
+
+        const anoLines = allAnos.map((obj) => {
+          return obj.anoLineBegin
         })
+
+        this.setState({allAnos: allAnos, anoLines: anoLines})
       })
       .catch(console.log)
   }
@@ -91,7 +103,8 @@ class DisplayPage extends Component {
       anoText: this.state.anoText,
       anoAuthor: this.state.anoAuthor,
       anoLineBegin: this.state.anoLineBegin,
-      anoLineEnd: this.state.anoLineEnd
+      anoLineEnd: this.state.anoLineEnd,
+      snipKey: this.state.snipKey
 
     }
 
@@ -125,6 +138,48 @@ class DisplayPage extends Component {
     }
   }
 
+  showAno (e) {
+    const lNum = parseInt(e.target.textContent, 10)
+    const anoT = this.state.allAnos.filter((obj) => {
+      if (obj.anoLineBegin === lNum) {
+        return obj
+      } else {
+        return false
+      }
+    })
+
+    console.log('>>>>>>', anoT[0].anoText)
+
+    this.setState({
+      anoOverlayTarget: e.target,
+      anoOverlayShow: true,
+      currentAno: anoT[0].anoText
+    })
+  }
+
+  addOrShowAno (e) {
+    const l = parseInt(e.target.textContent, 10)
+    if (this.state.anoLines.includes(l)) {
+      console.log('in if')
+      this.showAno(e)
+    } else {
+      console.log('in else')
+      this.addAnnotation(e)
+    }
+  }
+
+  anoOrNot (num) {
+    if (this.state.allAnos.length > 0) {
+      let returnObj = {}
+      this.state.allAnos.forEach((t) => {
+        if (num === t.anoLineBegin) {
+          returnObj = {color: 'red'}
+        }
+      })
+      return returnObj
+    }
+  }
+
   render () {
     return (
       <div
@@ -137,7 +192,8 @@ class DisplayPage extends Component {
             language={this.state.langSelect}
             showLineNumbers
             style={atelierDuneDark}
-            onClick={this.addAnnotation}
+            lineNumberStyle={this.anoOrNot}
+            onClick={this.addOrShowAno}
           >
             {this.state.codeText}
           </SyntaxHighlighter>
@@ -156,6 +212,16 @@ class DisplayPage extends Component {
             sendAnoToDB={this.sendAnoToDB}
             anoLineBegin={this.state.anoLineBegin}
             anoLineEnd={this.state.anoLineEnd}
+          />
+        </Overlay>
+        <Overlay
+          show={this.state.anoOverlayShow}
+          placemant='right'
+          container={this}
+          target={this.state.anoOverlayTarget}
+        >
+          <ShowAno
+            anoText={this.state.currentAno}
           />
         </Overlay>
       </div>

@@ -27,7 +27,7 @@ class WriteAnnotation extends Component {
               componentClass='textarea'
               placeholder='paste text here'
               value={this.props.anoText}
-              onChange={(e) => this.props.handleChange(e, 'anoText')}
+              onChange={(e) => this.props.handleTextChange(e, 'anoText')}
             />
           </FormGroup>
           <Form inline>
