@@ -15,7 +15,7 @@ class WriteAnnotation extends Component {
         id='annotation'
         style={{
           top: this.props.style.top + 90,
-          left: 195
+          left: 205
         }}
       >
         <div

@@ -133,6 +133,7 @@ class DisplayPage extends Component {
       this.setState({
         overlayTarget: e.target,
         overlayShow: true,
+        anoOverlayShow: false,
         anoLineBegin: lineNum !== 'NaN' ? lineNum : 0
       })
     }
@@ -153,6 +154,7 @@ class DisplayPage extends Component {
     this.setState({
       anoOverlayTarget: e.target,
       anoOverlayShow: true,
+      overlayShow: false,
       currentAno: anoT[0].anoText
     })
   }
@@ -185,7 +187,9 @@ class DisplayPage extends Component {
       <div
         id='codeDisplayBox'
       >
-        <Panel>
+        <Panel
+          id='theCode'
+        >
           <p>Title: {this.state.codeTitle}</p>
           <p>Author: {this.state.codeAuthor}</p>
           <SyntaxHighlighter
