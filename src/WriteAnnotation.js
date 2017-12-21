@@ -9,8 +9,6 @@ import './App.css'
 
 class WriteAnnotation extends Component {
   render () {
-    console.log(this.props.style)
-    /* add css to App.css */
     return (
       <div
         className='popover-content'
@@ -44,7 +42,9 @@ class WriteAnnotation extends Component {
                 id='anoLineBegin'
                 type='number'
                 value={this.props.anoLineBegin}
-                onChange={(e) => this.props.handleChange(e, 'anoLineBegin')}
+                onChange={(e) => {
+                  this.props.handleLineChange(e, 'anoLineBegin')
+                }}
               />
               {' '}
               <FormControl
@@ -52,11 +52,7 @@ class WriteAnnotation extends Component {
                 type='number'
                 value={this.props.anoLineEnd}
                 onChange={(e) => {
-                  const value = e.target.value
-                  // eslint-disable-next-line no-useless-escape
-                  if (value.match('[0-9]+') || value === '') {
-                    this.props.handleChange(e, 'anoLineEnd')
-                  }
+                  this.props.handleLineChange(e, 'anoLineEnd')
                 }}
               />
               {' '}

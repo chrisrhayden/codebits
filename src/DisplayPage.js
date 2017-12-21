@@ -25,28 +25,34 @@ class DisplayPage extends Component {
       anoText: '',
       anoAuthor: '',
       anoLineBegin: 0,
-      anoLineEnd: false,
+      anoLineEnd: 0,
       lineCount: 0,
       overlayShow: false,
       overlayTarget: false
     }
 
     this.addAnnotation = this.addAnnotation.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleTextChange = this.handleTextChange.bind(this)
+    this.handleLineChange = this.handleLineChange.bind(this)
     this.sendAnoToDB = this.sendAnoToDB.bind(this)
   }
 
-  handleChange (e, formName) {
+  handleLineChange (e, formName) {
+    const eValue = e.target.value.replace(/[a-zA-Z\W]/g, '')
+    this.setState({[formName]: eValue})
+  }
+
+  handleTextChange (e, formName) {
     this.setState({[formName]: e.target.value})
   }
 
-  componentWillMount () {
+  async componentWillMount () {
     let fbUrlBase = 'https://firstproj-9f9e1.firebaseio.com/'
     const snipKey = this.props.match.params.snipKey
 
     const fbUrl = `${fbUrlBase}snip/${snipKey}.json`
 
-    fetch(fbUrl)
+    await fetch(fbUrl)
       .then(resp => resp.json())
       .then((resp) => {
         this.setState({
@@ -61,6 +67,20 @@ class DisplayPage extends Component {
         console.log(err)
         this.setState({codeText: '404 page not found'})
       })
+
+    /* fake need internet */
+    const anoUrl = `${fbUrlBase}/ano/ FIRE BASE get by key`
+    await fetch(anoUrl)
+      .then(resp => resp.json())
+      .then((resp) => {
+        this.setState({
+          anoText: resp.anoText,
+          anoAuthor: resp.anoAuthor,
+          anoLineBegin: resp.anoLineBegin,
+          anoLineEnd: resp.anoLineEnd
+        })
+      })
+      .catch(console.log)
   }
 
   sendAnoToDB () {
@@ -71,7 +91,7 @@ class DisplayPage extends Component {
       anoText: this.state.anoText,
       anoAuthor: this.state.anoAuthor,
       anoLineBegin: this.state.anoLineBegin,
-      anoLineEnd: this.anoLineEnd
+      anoLineEnd: this.state.anoLineEnd
 
     }
 
@@ -87,7 +107,8 @@ class DisplayPage extends Component {
           anoText: '',
           anoLineBegin: '',
           anoLineEnd: '',
-          anoAuthor: ''
+          anoAuthor: '',
+          overlayShow: false
         })
       })
       .catch(console.log)
@@ -95,7 +116,7 @@ class DisplayPage extends Component {
 
   addAnnotation (e) {
     if (e.target.textContent.match('^[0-9]+\n$')) {
-      const lineNum = parseInt(e.target.textContent)
+      const lineNum = parseInt(e.target.textContent, 10)
       this.setState({
         overlayTarget: e.target,
         overlayShow: true,
@@ -105,7 +126,6 @@ class DisplayPage extends Component {
   }
 
   render () {
-    console.log(this.refs)
     return (
       <div
         id='codeDisplayBox'
@@ -123,7 +143,6 @@ class DisplayPage extends Component {
           </SyntaxHighlighter>
         </Panel>
 
-        {/* show wants ether true or false */}
         <Overlay
           show={this.state.overlayShow}
           placemant='right'
@@ -132,7 +151,8 @@ class DisplayPage extends Component {
         >
           <WriteAnnotation
             anoText={this.state.anoText}
-            handleChange={this.handleChange}
+            handleTextChange={this.handleTextChange}
+            handleLineChange={this.handleLineChange}
             sendAnoToDB={this.sendAnoToDB}
             anoLineBegin={this.state.anoLineBegin}
             anoLineEnd={this.state.anoLineEnd}
