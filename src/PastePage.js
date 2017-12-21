@@ -48,10 +48,21 @@ class PastePage extends Component {
   render () {
     return (
       <div id='pasting-form'>
-        <PasteBox
-          codeText={this.state.codeText}
-          handleChange={this.handleChange}
-        />
+        <div
+          id='mainForm'
+        >
+          <PasteBox
+            codeText={this.state.codeText}
+            handleChange={this.handleChange}
+          />
+          <PasteInlineForm
+            codeText={this.state.codeTitle}
+            codeAuthor={this.state.codeAuthor}
+            handleChange={this.handleChange}
+            sendToDB={this.sendToDB}
+            langSelect={this.state.langSelect}
+          />
+        </div>
         <div
           id='welcomText'
         >
@@ -62,13 +73,6 @@ class PastePage extends Component {
           <p>press the subit buten and you will be brought to</p>
           <p>the review page</p>
         </div>
-        <PasteInlineForm
-          codeText={this.state.codeTitle}
-          codeAuthor={this.state.codeAuthor}
-          handleChange={this.handleChange}
-          sendToDB={this.sendToDB}
-          langSelect={this.state.langSelect}
-        />
       </div>
     )
   }

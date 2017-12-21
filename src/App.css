@@ -1,18 +1,32 @@
-#App {
+#pasting-form {
     display: grid;
     grid-template-columns: 150px 700px auto;
+    grid-template-rows: auto;
+    grid-column-gap: 10px;
     grid-template-areas:
         'tags main side';
+
 }
 
-#pasting-form {
+#mainForm {
     grid-area: main;
+
+    display: flex;
+
+    flex-flow: column;
+    justify-content: start;
 }
 
-#pasting-text {
+#welcomText {
+    grid-area: side;
+}
+
+#pastingText {
+    margin: 10px 0 0 0;
     width: 700px;
     height: 800px;
 }
+
 
 #codeDisplayBox {
     grid-area: main;

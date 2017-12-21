@@ -9,7 +9,9 @@ import {
 class PasteInlineForm extends Component {
   render () {
     return (
-      <Form inline>
+      <Form inline
+        id='inlineForm'
+      >
         <FormGroup>
           <FormControl
             id='snippetTitle'
