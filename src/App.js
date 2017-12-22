@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import './App.css'
 import PastePage from './PastePage'
 import {
-  BrowserRouter as Router,
-  Route
+  Route,
+  HashRouter
 } from 'react-router-dom'
 import DisplayPage from './DisplayPage'
+
+// BrowserRouter as Router,
 
 class TagsPage extends Component {
   render () {
@@ -20,7 +22,7 @@ class TagsPage extends Component {
 class App extends Component {
   render () {
     return (
-      <Router>
+      <HashRouter>
         <div id='App'>
           {/*  exact is to only route if alone */}
           <Route exact path='/' render={props => (
@@ -31,7 +33,7 @@ class App extends Component {
           )} />
           <Route path='/tags' component={TagsPage} />
         </div>
-      </Router>
+      </HashRouter>
     )
   }
 }

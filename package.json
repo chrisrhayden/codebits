@@ -20,7 +20,9 @@
     "eject": "react-scripts eject",
     "flow": "flow",
     "lint": "node_modules/.bin/eslint src/",
-    "lint_fix": "node_modules/.bin/eslint --fix src/"
+    "lint_fix": "node_modules/.bin/eslint --fix src/",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "enzyme": "^3.2.0",
@@ -33,6 +35,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.5.1",
     "eslint-plugin-standard": "^3.0.1",
-    "flow-bin": "^0.60.1"
+    "flow-bin": "^0.60.1",
+    "gh-pages": "^1.1.0"
   }
 }
