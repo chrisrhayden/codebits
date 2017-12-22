@@ -23,11 +23,6 @@
 
 #mainForm {
     grid-area: main;
-
-    display: flex;
-
-    flex-flow: column;
-    justify-content: start;
 }
 
 #welcomText {
@@ -89,4 +84,25 @@ td pre {
 
 #anoLineEnd {
     width: 150px;
+}
+
+#paste-form {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+#inlineForm div {
+    margin-left: 0;
+    width: 350px;
+}
+
+#form-side {
+    display: flex;
+    justify-content: space-between;
+}
+
+#submitButton {
+    margin: 0 0 0 30px;
+    height: 80px;
 }

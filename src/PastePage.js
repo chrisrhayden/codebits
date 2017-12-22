@@ -19,7 +19,6 @@ class PastePage extends Component {
     this.sendToDB = this.sendToDB.bind(this)
   }
 
-  /* TODO: ask Petter how to disable */
   handleChange (e, formName) {
     this.setState({[formName]: e.target.value})
   }
