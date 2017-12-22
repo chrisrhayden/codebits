@@ -66,7 +66,7 @@ class PastePage extends Component {
         <div
           id='welcomText'
         >
-          <p>welcome to codebits, a code review site</p>
+          {/* <p>welcome to codebits, a code review site</p> */}
           <p>pleas paste a small snippet</p>
           <p>or whole module in to the box</p>
           <p>when youre ready to upload it for review</p>
