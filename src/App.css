@@ -1,15 +1,79 @@
-#App {
+#pasting-form {
     display: grid;
     grid-template-columns: 150px 700px auto;
+    grid-template-rows: auto;
+    grid-column-gap: 10px;
     grid-template-areas:
         'tags main side';
+
 }
 
-#pasting-form {
+#mainForm {
+    grid-area: main;
+
+    display: flex;
+
+    flex-flow: column;
+    justify-content: start;
+}
+
+#welcomText {
+    grid-area: side;
+}
+
+#pastingText {
+    margin: 10px 0 0 0;
+    width: 700px;
+    height: 800px;
+}
+
+
+#codeDisplayBox {
+    display: grid;
+    grid-template-columns: 150px 700px auto;
+    grid-template-rows: auto;
+    grid-column-gap: 10px;
+    grid-template-areas:
+        'tags main side';
+
+}
+
+#theCode {
     grid-area: main;
 }
 
-#pasting-text {
-    width: 700px;
-    height: 800px;
+td pre {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.arrow {
+    display: none;
+}
+
+#annotation {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    position: absolute;
+    border: 1px solid rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    background-color: white;
+    border-radius: 6px;
+    height: 230px;
+    width: 730px;
+}
+
+#addAnnotationBox {
+    width: 620px;
+    height: 165px;
+}
+
+#anoLineBegin {
+    width: 150px;
+}
+
+#anoLineEnd {
+    width: 150px;
 }
