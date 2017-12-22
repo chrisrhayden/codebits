@@ -2,7 +2,7 @@
   "name": "codebits",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://chrisrhayden.github.io/codebits/"
+  "homepage": "https://chrisrhayden.github.io/codebits/",
   "dependencies": {
     "eslint-plugin-fetch": "0.0.1",
     "jest-fetch-mock": "^1.4.0",
