@@ -1,12 +1,25 @@
-#pasting-form {
-    display: grid;
-    grid-template-columns: 150px 700px auto;
-    grid-template-rows: auto;
-    grid-column-gap: 10px;
-    grid-template-areas:
-        'tags main side';
-
+@media screen and (max-width: 1200px) {
+    #pasting-form {
+        display: grid;
+        grid-template-columns: 150px 700px 200px;
+        grid-template-rows: auto;
+        grid-column-gap: 10px;
+        grid-template-areas:
+            'tags main side';
+    }
 }
+
+@media screen and (min-width: 1200px) {
+    #pasting-form {
+        display: grid;
+        grid-template-columns: 150px 700px auto;
+        grid-template-rows: auto;
+        grid-column-gap: 10px;
+        grid-template-areas:
+            'tags main side';
+    }
+}
+
 
 #mainForm {
     grid-area: main;
