@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
-import PastePage from './PastePage'
 import {
   Route,
   HashRouter
 } from 'react-router-dom'
+
+import PastePage from './PastePage'
 import DisplayPage from './DisplayPage'
 
 // BrowserRouter as Router,

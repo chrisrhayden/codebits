@@ -10,10 +10,10 @@ class PasteInlineForm extends Component {
   render () {
     return (
       <div
-        id='paste-form'
+        id='pasteMetaForm'
       >
         <Form horizontal
-          id='inlineForm'
+          id='titleAuthorForm'
         >
           <FormGroup>
             <FormControl
@@ -36,10 +36,10 @@ class PasteInlineForm extends Component {
           </FormGroup>
         </Form>
         <div
-          id='form-side'
+          id='metaFormSide'
         >
           <Form horizontal
-            id='paste-meta-text'
+            id='pasteSelect'
           >
             <FormGroup>
               <FormControl

@@ -15,6 +15,7 @@ class PastePage extends Component {
       langSelect: '',
       skillSelect: ''
     }
+
     this.handleChange = this.handleChange.bind(this)
     this.sendToDB = this.sendToDB.bind(this)
   }

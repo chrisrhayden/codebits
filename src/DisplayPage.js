@@ -3,15 +3,12 @@ import React, { Component } from 'react'
 import './App.css'
 
 import {
-  Panel,
   Overlay
 } from 'react-bootstrap'
 
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
-
 import WriteAnnotation from './WriteAnnotation'
 import ShowAno from './ShowAno'
+import CodeDisplay from './CodeDisplay'
 
 class DisplayPage extends Component {
   constructor () {
@@ -142,11 +139,7 @@ class DisplayPage extends Component {
   showAno (e) {
     const lNum = parseInt(e.target.textContent, 10)
     const anoT = this.state.allAnos.filter((obj) => {
-      if (obj.anoLineBegin === lNum) {
-        return obj
-      } else {
-        return false
-      }
+      return obj.anoLineBegin === lNum ? obj : false
     })
 
     console.log('>>>>>>', anoT[0].anoText)
@@ -187,21 +180,13 @@ class DisplayPage extends Component {
       <div
         id='codeDisplayBox'
       >
-        <Panel
-          id='theCode'
-        >
-          <p>Title: {this.state.codeTitle}</p>
-          <p>Author: {this.state.codeAuthor}</p>
-          <SyntaxHighlighter
-            language={this.state.langSelect}
-            showLineNumbers
-            style={atelierDuneDark}
-            lineNumberStyle={this.anoOrNot}
-            onClick={this.addOrShowAno}
-          >
-            {this.state.codeText}
-          </SyntaxHighlighter>
-        </Panel>
+        <CodeDisplay
+          codeTitle={this.state.codeTitle}
+          codeAuthor={this.state.codeAuthor}
+          langSelect={this.state.langSelect}
+          skillSelect={this.state.skillSelect}
+          addOrShowAno={this.addOrShowAno}
+        />
 
         <Overlay
           show={this.state.overlayShow}
