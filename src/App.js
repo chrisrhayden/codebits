@@ -24,7 +24,7 @@ class App extends Component {
   render () {
     return (
       <HashRouter>
-        <div id='App'>
+        <div id='root'>
           {/*  exact is to only route if alone */}
           <Route exact path='/' render={props => (
             <PastePage {...props} />

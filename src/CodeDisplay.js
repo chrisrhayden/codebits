@@ -9,6 +9,18 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierDuneDark } from 'react-syntax-highlighter/styles/hljs'
 
 class DisplayPage extends Component {
+  anoOrNot (num) {
+    if (this.state.allAnos.length > 0) {
+      let returnObj = {}
+      this.state.allAnos.forEach((t) => {
+        if (num === t.anoLineBegin) {
+          returnObj = {color: 'red'}
+        }
+      })
+      return returnObj
+    }
+  }
+
   render () {
     return (
       <Panel

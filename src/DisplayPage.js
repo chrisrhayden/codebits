@@ -6,6 +6,8 @@ import {
   Overlay
 } from 'react-bootstrap'
 
+// import giveRightSnip from './utils'
+
 import WriteAnnotation from './WriteAnnotation'
 import ShowAno from './ShowAno'
 import CodeDisplay from './CodeDisplay'
@@ -27,7 +29,7 @@ class DisplayPage extends Component {
       anoLineEnd: 0,
       lineCount: 0,
       overlayShow: false,
-      overlayTarget: false,
+      overlayTarget: null,
       allAnos: {},
       anoLines: [],
       anoOverlayShow: false,
@@ -39,7 +41,6 @@ class DisplayPage extends Component {
     this.handleTextChange = this.handleTextChange.bind(this)
     this.handleLineChange = this.handleLineChange.bind(this)
     this.sendAnoToDB = this.sendAnoToDB.bind(this)
-    this.anoOrNot = this.anoOrNot.bind(this)
     this.addOrShowAno = this.addOrShowAno.bind(this)
   }
 
@@ -55,6 +56,19 @@ class DisplayPage extends Component {
   async componentWillMount () {
     let fbUrlBase = 'https://firstproj-9f9e1.firebaseio.com/'
     const snipKey = this.props.match.params.snipKey
+
+    /*
+    const aSnip = giveRightSnip(snipKey)[1]
+
+    this.setState({
+      snipKey,
+      codeText: aSnip.codeText,
+      codeTitle: aSnip.codeTitle,
+      codeAuthor: aSnip.codeAuthor,
+      skillSelect: aSnip.skillSelect,
+      langSelect: aSnip.langSelect
+    })
+    */
 
     const fbUrl = `${fbUrlBase}snip/${snipKey}.json`
 
@@ -80,8 +94,9 @@ class DisplayPage extends Component {
     await fetch(anoUrl)
       .then(resp => resp.json())
       .then((resp) => {
-        const allAnos = Object.values(resp)
-          .filter((obj) => obj.snipKey === this.state.snipKey)
+        const allAnos = Object.values(resp).filter((obj) => {
+          return obj.snipKey === this.state.snipKey
+        })
 
         const anoLines = allAnos.map((obj) => {
           return obj.anoLineBegin
@@ -163,18 +178,6 @@ class DisplayPage extends Component {
     }
   }
 
-  anoOrNot (num) {
-    if (this.state.allAnos.length > 0) {
-      let returnObj = {}
-      this.state.allAnos.forEach((t) => {
-        if (num === t.anoLineBegin) {
-          returnObj = {color: 'red'}
-        }
-      })
-      return returnObj
-    }
-  }
-
   render () {
     return (
       <div
@@ -184,8 +187,8 @@ class DisplayPage extends Component {
           codeTitle={this.state.codeTitle}
           codeAuthor={this.state.codeAuthor}
           langSelect={this.state.langSelect}
-          skillSelect={this.state.skillSelect}
           addOrShowAno={this.addOrShowAno}
+          anoOrNot={this.anoOrNot}
         />
 
         <Overlay
@@ -211,6 +214,7 @@ class DisplayPage extends Component {
         >
           <ShowAno
             anoText={this.state.currentAno}
+            addOrShowAno={this.addOrShowAno}
           />
         </Overlay>
       </div>
