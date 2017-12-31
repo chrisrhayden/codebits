@@ -30,11 +30,9 @@ class DisplayPage extends Component {
       anoLineEnd: 0,
       lineCount: 0,
       overlayShow: false,
-      overlayTarget: false,
       allAnos: {},
       anoLines: [],
       anoOverlayShow: false,
-      anoOverlayTarget: false,
       currentAno: ''
     }
 

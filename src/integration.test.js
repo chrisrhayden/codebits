@@ -3,9 +3,11 @@
 import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import fetch from 'jest-fetch-mock'
+
+import DisplayPage from './DisplayPage'
 import PasteInlineForm from './PasteInlineForm'
 import PasteBox from './PasteBox'
-import fetch from 'jest-fetch-mock'
 
 Enzyme.configure({adapter: new Adapter()})
 window.fetch = fetch
@@ -67,8 +69,7 @@ describe('integration testing', () => {
   it('sets the right skill in the select menu', () => {
     // dummy data
     const bumBumyData = {
-      skillSelect: 'intermediate',
-      handleChange: jest.fn()
+      skillSelect: 'intermediate'
     }
 
     // shallow render the component with dummy data
@@ -77,21 +78,31 @@ describe('integration testing', () => {
     expect(pform.find('#skillSelect').props().value).toBe('intermediate')
   })
 
-  it('calls the sendToFB callback when the click', () => {
-    const fbCallBack = jest.fn()
+  it('calls the sendToDB callback when clicked', () => {
+    const dbCallBack = jest.fn()
     const bumBumyData = {
       codeTitle: 'a title',
       codeAuthor: '',
       langSelect: '',
       skillSelect: '',
       handleChange: jest.fn(),
-      sendToDB: fbCallBack
+      sendToDB: dbCallBack
     }
 
     const shalForm = shallow(<PasteInlineForm {...bumBumyData} />)
 
     const button = shalForm.find('#submitButton')
     button.simulate('click')
-    expect(fbCallBack.mock.calls.length).toBe(1)
+    expect(dbCallBack.mock.calls.length).toBe(1)
+  })
+
+  it('renders the display page', () => {
+    const fakeData = {
+      match: { params: { snipKey: 'hello' } }
+    }
+
+    const disPage = shallow(<DisplayPage {...fakeData} />)
+
+    console.log('>>>>', disPage.state())
   })
 })
