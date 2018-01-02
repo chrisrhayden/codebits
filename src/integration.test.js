@@ -1,13 +1,16 @@
 /* global jest it describe expect */
 
 import React from 'react'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import fetch from 'jest-fetch-mock'
+import { MemoryRouter } from 'react-router-dom'
 
 import DisplayPage from './DisplayPage'
 import PasteInlineForm from './PasteInlineForm'
 import PasteBox from './PasteBox'
+
+const fakeData = require('./fakeData')
 
 Enzyme.configure({adapter: new Adapter()})
 window.fetch = fetch
@@ -97,12 +100,13 @@ describe('integration testing', () => {
   })
 
   it('renders the display page', () => {
-    const fakeData = {
-      match: { params: { snipKey: 'hello' } }
-    }
+    fetch.mockResponse(JSON.stringify({ fakeData }))
 
-    const disPage = shallow(<DisplayPage {...fakeData} />)
+    const disPage = mount(
+      <MemoryRouter initialEntries={[ { hash: '/#/snip/-L0OcqJ4eRAB3BxkXZv5' } ]}>
+        <DisplayPage />
+      </MemoryRouter>)
 
-    console.log('>>>>', disPage.state())
+    console.log('>>>>', disPage.props())
   })
 })
